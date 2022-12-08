@@ -1,25 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-import DebugButton from './components/debugButton';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Routes, Route} from "react-router-dom";
+import DebugButton from './components/DebugButton';
+import SearchBox from './components/SearchBox';
+import WeatherWidget from './components/WeatherWidget';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import "./styles.css"
 
 function App() {
+  const [count, setCount] = useState(0)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <DebugButton text="Click here for debug output"></DebugButton>
-      </header>
+        <div className="App-header">
+          Count: {count}
+          {useEffect(() => {count%2===0 && console.log("Even number")}, [count])}
+          <DebugButton buttonText="Hello World" countIncrementer={setCount} currentCount={count}></DebugButton>
+          <SearchBox></SearchBox>
+          <WeatherWidget></WeatherWidget>
+        </div>
     </div>
   );
 }
