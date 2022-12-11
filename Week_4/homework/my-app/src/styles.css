@@ -19,3 +19,16 @@
 .flex-container{ 
     display: flex;
 }
+
+.weather-widget{
+  width: 200px;
+  background-color: #282c34;
+}
+
+.card-title-weather{
+  color: white;
+}
+
+.row-weather{
+  width: 90%
+}
