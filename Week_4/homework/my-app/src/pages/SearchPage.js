@@ -1,4 +1,5 @@
 import SearchBox from "../components/SearchBox";
+import { useState } from "react";
 
 import {
     createStyles,
@@ -11,11 +12,11 @@ import {
   } from "@mantine/core";
 import { Outlet } from "react-router-dom";
 
-export default function SearchPage() {
+export default function SearchPage(props) {
     return (
         <div className="flex-container">
         <Outlet></Outlet>
-        <SearchBox></SearchBox>
+        <SearchBox masterFunction={props.masterFunction}></SearchBox>
         </div>
         )
 }

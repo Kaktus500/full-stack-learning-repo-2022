@@ -10,15 +10,19 @@ import { useEffect } from 'react';
 import "./styles.css"
 import DefaultLayout from './components/layouts/DefaultLayout';
 import SearchPage from './pages/SearchPage';
+import ForecastPage from './pages/ForecastPage';
 
 function App() {
   const [count, setCount] = useState(0)
+  const [city, setCity] = useState("");
+  const API_KEY = process.env.REACT_APP_WEATHERMAP_KEY;
+  const [weatherData, setWeatherData] = useState(0);
   return (
     <div className='App'>
-      <DebugButton></DebugButton>
       <Routes>
-        <Route path="/" element={<SearchPage></SearchPage>}>
-          <Route path='debug' element={<WeatherWidget></WeatherWidget>}></Route>
+        <Route path="/" element={<SearchPage masterFunction={[setCity, setWeatherData]}></SearchPage>}>
+          <Route path='debug' element={<ForecastPage weatherData ={weatherData} cityInput={city} city="Austin, TX" today="Saturday 24" days={["Monday 22", "Tuesday 23", "Wednesday 24", "Thursday 25", "Friday 26"]}></ForecastPage>}></Route>
+          {/*<Route path='debug' element={<WeatherWidget city="Austin, TX" today="Saturday 24" days={["Monday 22", "Tuesday 23", "Wednesday 24", "Thursday 25", "Friday 26"]}></WeatherWidget>}></Route>*/}
         </Route>
       </Routes>
     </div>
