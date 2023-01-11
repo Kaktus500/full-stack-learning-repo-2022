@@ -47,6 +47,11 @@
   color: white;
 }
 
+.card-temp{
+  color: white;
+  font-size: 1em;
+}
+
 .row-weather{
   width: 90%
 }

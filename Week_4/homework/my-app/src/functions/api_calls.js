@@ -1,4 +1,4 @@
-export function get_coordinates(city, country, state=""){
+export function get_coordinates(city, country, setGeoCity, state=""){
     const key = process.env.REACT_APP_WEATHERMAP_KEY;
     let api_call = "";
     let output = "";
@@ -14,14 +14,15 @@ export function get_coordinates(city, country, state=""){
 					)
 					.then((result) => {
 						console.log(result); //print out results
-                        output = result
-                        return("Test");
+                        setGeoCity(result[0])
 					});
+    return
 }
 
-export function get_weather(lon, lat, setDataReceived, setWeatherData){
+export function get_weather(lon, lat, setDataReceived, setWeatherData, setTimeZone){
+    console.log(lon, lat)
     const key = process.env.REACT_APP_WEATHERMAP_KEY;
-    let api_call = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=4e1556fbea944fe7a78573611782a65d`; 
+    let api_call = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=4e1556fbea944fe7a78573611782a65d`; 
     let output = ""
     fetch(api_call)
 					.then((response) => 
@@ -31,6 +32,7 @@ export function get_weather(lon, lat, setDataReceived, setWeatherData){
 					.then((result) => {
 						console.log(result["list"]); //print out results
                         setWeatherData(result["list"])
+                        setTimeZone(result["city"]["timezone"]/3600)
                         setDataReceived(true)
 					});
     return

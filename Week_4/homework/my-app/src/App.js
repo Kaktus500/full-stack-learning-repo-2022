@@ -15,13 +15,15 @@ import ForecastPage from './pages/ForecastPage';
 function App() {
   const [count, setCount] = useState(0)
   const [city, setCity] = useState("");
-  const API_KEY = process.env.REACT_APP_WEATHERMAP_KEY;
-  const [weatherData, setWeatherData] = useState(0);
+  const API_KEY = process.env.REACT_APP_WEATHERMAP_KEY
+  const [weatherData, setWeatherData] = useState(0)
+  const [timeZone, setTimeZone] = useState(0)
+  useEffect(() => {console.log(weatherData)}, [weatherData])
   return (
     <div className='App'>
       <Routes>
-        <Route path="/" element={<SearchPage masterFunction={[setCity, setWeatherData]}></SearchPage>}>
-          <Route path='debug' element={<ForecastPage weatherData ={weatherData} cityInput={city} city="Austin, TX" today="Saturday 24" days={["Monday 22", "Tuesday 23", "Wednesday 24", "Thursday 25", "Friday 26"]}></ForecastPage>}></Route>
+        <Route path="/" element={<SearchPage masterFunction={[setCity, setWeatherData, setTimeZone]}></SearchPage>}>
+          <Route path='debug' element={<ForecastPage weatherData ={weatherData} cityInput={city} city={city} today="Saturday 24"></ForecastPage>}></Route>
           {/*<Route path='debug' element={<WeatherWidget city="Austin, TX" today="Saturday 24" days={["Monday 22", "Tuesday 23", "Wednesday 24", "Thursday 25", "Friday 26"]}></WeatherWidget>}></Route>*/}
         </Route>
       </Routes>
