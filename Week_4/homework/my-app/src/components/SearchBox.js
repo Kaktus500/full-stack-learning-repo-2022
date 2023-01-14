@@ -3,7 +3,7 @@ import Button from "react-bootstrap/esm/Button";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
-import { get_coordinates, get_weather } from "../functions/api_calls";
+import { get_coordinates, get_weather, get_current_weather, get_air_quality } from "../functions/api_calls";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export default function SearchBox(props) {
@@ -26,6 +26,8 @@ export default function SearchBox(props) {
       //console.log(local_city)
       props.masterFunction[0](geoCity["name"])
       console.log(geoCity["lon"], geoCity["lat"])
+      get_current_weather(geoCity["lon"],geoCity["lat"],props.masterFunction[3])
+      get_air_quality(geoCity["lon"],geoCity["lat"],props.masterFunction[4])
       get_weather(geoCity["lon"],geoCity["lat"],setDataReceived,setWeatherData,setTimeZone)
       }
     }, [geoCity])
@@ -73,7 +75,7 @@ export default function SearchBox(props) {
       //get_weather(geoCity["lon"],geoCity["lat"],setDataReceived,setWeatherData)
     }
     return (
-        <div className="flex-container">
+        <div className="flex-container" id="search-page">
             <div className="text-box">
                 <FloatingLabel
                   controlId="floatingInput"
@@ -88,7 +90,7 @@ export default function SearchBox(props) {
                   />
                 </FloatingLabel>
             </div>
-            <div><Button variant="primary" onClick={() => searchHandler()}>Search</Button></div>
+            <Button variant="primary" id="search-btn" onClick={() => searchHandler()}>Search</Button>
         </div>
     );
 }

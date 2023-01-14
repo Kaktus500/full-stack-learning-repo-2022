@@ -22,7 +22,7 @@ export function get_coordinates(city, country, setGeoCity, state=""){
 export function get_weather(lon, lat, setDataReceived, setWeatherData, setTimeZone){
     console.log(lon, lat)
     const key = process.env.REACT_APP_WEATHERMAP_KEY;
-    let api_call = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=4e1556fbea944fe7a78573611782a65d`; 
+    let api_call = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=4e1556fbea944fe7a78573611782a65d` 
     let output = ""
     fetch(api_call)
 					.then((response) => 
@@ -35,5 +35,36 @@ export function get_weather(lon, lat, setDataReceived, setWeatherData, setTimeZo
                         setTimeZone(result["city"]["timezone"]/3600)
                         setDataReceived(true)
 					});
+    return
+}
+
+export function get_current_weather(lon, lat, setWeatherData){
+    const key = process.env.REACT_APP_WEATHERMAP_KEY
+    let api_call = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${key}`
+    fetch(api_call)
+        .then((response) =>
+            // convert response to json
+            response.json()
+        )
+        .then((result) => {
+            console.log(result)
+            setWeatherData(result)
+
+        });
+    return
+}
+
+export function get_air_quality(lon, lat, setAirQuality){
+    const key = process.env.REACT_APP_WEATHERMAP_KEY
+    let api_call = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${key}`
+    fetch(api_call)
+        .then((response) =>
+            // convert response to json
+            response.json()
+        )
+        .then((result) => {
+            console.log("Air Quality", result)
+            setAirQuality(result)
+        });
     return
 }
